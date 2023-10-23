@@ -40,8 +40,11 @@ export default function HomeScreen() {
         {/* Carrusel de Películas */}
         <TrendingMovies data={trending} />
 
-        {/* Lista de Películas */}
-        <MovieList title="Upcoming" data={upcoming} />
+        {/* Lista de Acción */}
+        <MovieList title="Acción" data={upcoming} />
+
+        {/* Lista de Romance */}
+        <MovieList title="Romance" data={topRated} />
       </ScrollView>
     </View>
   );
