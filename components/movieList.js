@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/core";
 
 var { width, height } = Dimensions.get("window");
 
-export default function MovieList({ title, data }) {
+export default function MovieList({ title, data, hideSeeAll }) {
   let movieName = "Super-Man La Saga En Español 5 Estrellas";
   const navigation = useNavigation();
 
@@ -21,9 +21,11 @@ export default function MovieList({ title, data }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity>
-          <Text style={styles.buttonText}>Ver más...</Text>
-        </TouchableOpacity>
+        {!hideSeeAll && (
+          <TouchableOpacity>
+            <Text style={styles.buttonText}>Ver más...</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <ScrollView
         horizontal

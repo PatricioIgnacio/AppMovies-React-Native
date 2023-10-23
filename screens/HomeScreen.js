@@ -14,11 +14,13 @@ import {
 
 import TrendingMovies from "../components/trendingMovies";
 import MovieList from "../components/movieList";
+import { useNavigation } from "@react-navigation/core";
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([1, 2, 3]);
   const [upcoming, setUpComing] = useState([1, 2, 3]);
   const [topRated, setTopRated] = useState([1, 2, 3]);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {/* logotipo */}
@@ -28,7 +30,7 @@ export default function HomeScreen() {
         <Text style={styles.title}>
           <Text style={{ ...styles.title, color: "#ea4208" }}>P</Text>elículas
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
           <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
         </TouchableOpacity>
       </View>
