@@ -1,14 +1,14 @@
-### Para correr ->
+### Descarga
 
-1. Clone the repo
+1. Clonar el repositorio:
    ```sh
    git clone https://github.com/PatricioIgnacio/AppMovies-React-Native
    ```
-2. Install NPM packages
+2. Instalar paquetes NPM:
    ```sh
    npm install
    ```
-3. Enter your API in `config.js`
+3. Agregar el llamado a la API en "contents/api":
    ```js
-   const API_KEY = "ENTER YOUR API";
+   const API_KEY = "Agregar API";
    ```
