@@ -12,3 +12,10 @@
    ```js
    const API_KEY = "Agregar API";
    ```
+
+### Ejecución:
+
+1. Android Studio:
+   ```sh
+   npm run android
+   ```
