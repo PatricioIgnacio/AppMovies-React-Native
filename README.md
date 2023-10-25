@@ -10,7 +10,7 @@
    ```
 3. Agregar el llamado a la API en "contents/api":
    ```js
-   const API_KEY = "Agregar API";
+   export const apiKey = "http://www.omdbapi.com/?i=tt3896198&apikey=875ae7b9";
    ```
 
 ### Ejecución:
