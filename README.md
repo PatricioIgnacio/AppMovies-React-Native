@@ -8,9 +8,9 @@
    ```sh
    npm install
    ```
-3. Agregar el llamado a la API en "api/moviedb.js":
+3. Agregar el llamado a la API en "constants/apikey.js":
    ```js
-   export const apiKey = "http://www.omdbapi.com/?i=tt3896198&apikey=875ae7b9";
+   export const apiKey = "ad536c73cbf7c1c3a630b1e97d64e3f2";
    ```
 
 ### Ejecución:
