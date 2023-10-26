@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Bars3CenterLeftIcon,
   MagnifyingGlassIcon,
@@ -15,12 +15,35 @@ import {
 import TrendingMovies from "../components/trendingMovies";
 import MovieList from "../components/movieList";
 import { useNavigation } from "@react-navigation/core";
+import { fetchTrendingMovies } from "../api/moviedb";
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([1, 2, 3]);
   const [upcoming, setUpComing] = useState([1, 2, 3]);
   const [topRated, setTopRated] = useState([1, 2, 3]);
+
+  {
+    /* Llamado a la API */
+  }
+
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getTrendingMovies();
+  }, []);
+
+  const getTrendingMovies = async () => {
+    const data = await fetchTrendingMovies();
+    console.lgo("Ir a películas tendencia: ", data);
+    if (data && data.result) setTrending(data.results);
+    setLoading(false);
+  };
+
+  {
+    /* Fin de constante de llamado a la API */
+  }
+
   return (
     <View style={styles.container}>
       {/* logotipo */}
@@ -40,7 +63,7 @@ export default function HomeScreen() {
         contentContainerStyle={{ paddingBottom: 10 }}
       >
         {/* Carrusel de Películas */}
-        <TrendingMovies data={trending} />
+        {trending.length > 0 && <TrendingMovies data={trending} />}
 
         {/* Lista de Acción */}
         <MovieList title="Acción" data={upcoming} />

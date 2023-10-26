@@ -10,20 +10,44 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { debounce } from "lodash";
+import { fallbackMoviePoster, image500, searchMovies } from "../api/moviedb";
+
 const { width, height } = Dimensions.get("window");
 
 export default function SearchScreen() {
   const navigation = useNavigation();
-  const [results, setResults] = useState([1, 2, 3, 4]);
-  let movieName = "Super-Man La Saga En Español 5 Estrellas";
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = (value) => {
+    if (value && value.length > 2) {
+      setLoading(true);
+      searchMovies({
+        query: value,
+        include_adult: "false",
+        language: "en-US",
+        page: "1",
+      }).then((data) => {
+        setLoading(false);
+        if (data && data.results) setResults(data.results);
+      });
+    } else {
+      setLoading(false);
+      setResults([]);
+    }
+  };
+
+  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
+          onChangeText={handleTextDebounce}
           placeholder="Buscar película..."
           placeholderTextColor="lightgray"
           style={styles.input}
@@ -79,14 +103,16 @@ export default function SearchScreen() {
                         width: "100%",
                         height: undefined,
                       }}
-                      source={require("../assets/images/pelicula2.png")}
+                      source={{
+                        uri: image500(item?.poster_path || fallbackMoviePoster),
+                      }}
                     />
                     <Text
                       style={{ color: "#A0AEC0", marginLeft: 1, marginTop: 4 }}
                     >
-                      {movieName.length > 22
-                        ? movieName.slice(0, 22) + "..."
-                        : movieName}
+                      {item.title.length > 22
+                        ? item.title.slice(0, 22) + "..."
+                        : item.title}
                     </Text>
                   </View>
                 </TouchableWithoutFeedback>
